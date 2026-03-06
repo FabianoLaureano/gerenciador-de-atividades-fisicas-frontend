@@ -138,10 +138,10 @@ export const ListWorkoutPlansActive = {
   false: "false",
 } as const;
 
-export type ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay =
-  (typeof ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay)[keyof typeof ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay];
+export type ListWorkoutPlans200ItemWorkoutDaysItemWeekDay =
+  (typeof ListWorkoutPlans200ItemWorkoutDaysItemWeekDay)[keyof typeof ListWorkoutPlans200ItemWorkoutDaysItemWeekDay];
 
-export const ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay = {
+export const ListWorkoutPlans200ItemWorkoutDaysItemWeekDay = {
   SUNDAY: "SUNDAY",
   MONDAY: "MONDAY",
   TUESDAY: "TUESDAY",
@@ -151,7 +151,7 @@ export const ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay = {
   SATURDAY: "SATURDAY",
 } as const;
 
-export type ListWorkoutPlans200PlansItemWorkoutDaysItemExercisesItem = {
+export type ListWorkoutPlans200ItemWorkoutDaysItemExercisesItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   order: number;
@@ -161,28 +161,24 @@ export type ListWorkoutPlans200PlansItemWorkoutDaysItemExercisesItem = {
   restTimeInSeconds: number;
 };
 
-export type ListWorkoutPlans200PlansItemWorkoutDaysItem = {
+export type ListWorkoutPlans200ItemWorkoutDaysItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
-  weekDay: ListWorkoutPlans200PlansItemWorkoutDaysItemWeekDay;
+  weekDay: ListWorkoutPlans200ItemWorkoutDaysItemWeekDay;
   isRest: boolean;
   estimatedDurationInSeconds: number;
   /** @nullable */
   coverImageUrl?: string | null;
-  exercises: ListWorkoutPlans200PlansItemWorkoutDaysItemExercisesItem[];
+  exercises: ListWorkoutPlans200ItemWorkoutDaysItemExercisesItem[];
 };
 
-export type ListWorkoutPlans200PlansItem = {
+export type ListWorkoutPlans200Item = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
   isActive: boolean;
-  workoutDays: ListWorkoutPlans200PlansItemWorkoutDaysItem[];
-};
-
-export type ListWorkoutPlans200 = {
-  plans: ListWorkoutPlans200PlansItem[];
+  workoutDays: ListWorkoutPlans200ItemWorkoutDaysItem[];
 };
 
 export type ListWorkoutPlans401 = {
@@ -254,10 +250,10 @@ export type UpdateWorkoutSession500 = {
   code: string;
 };
 
-export type GetWorkoutPlan200PlanWorkoutDaysItemWeekDay =
-  (typeof GetWorkoutPlan200PlanWorkoutDaysItemWeekDay)[keyof typeof GetWorkoutPlan200PlanWorkoutDaysItemWeekDay];
+export type GetWorkoutPlan200WorkoutDaysItemWeekDay =
+  (typeof GetWorkoutPlan200WorkoutDaysItemWeekDay)[keyof typeof GetWorkoutPlan200WorkoutDaysItemWeekDay];
 
-export const GetWorkoutPlan200PlanWorkoutDaysItemWeekDay = {
+export const GetWorkoutPlan200WorkoutDaysItemWeekDay = {
   SUNDAY: "SUNDAY",
   MONDAY: "MONDAY",
   TUESDAY: "TUESDAY",
@@ -267,27 +263,22 @@ export const GetWorkoutPlan200PlanWorkoutDaysItemWeekDay = {
   SATURDAY: "SATURDAY",
 } as const;
 
-export type GetWorkoutPlan200PlanWorkoutDaysItem = {
+export type GetWorkoutPlan200WorkoutDaysItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
-  weekDay: GetWorkoutPlan200PlanWorkoutDaysItemWeekDay;
+  weekDay: GetWorkoutPlan200WorkoutDaysItemWeekDay;
   name: string;
   isRest: boolean;
-  /** @nullable */
-  coverImageUrl?: string | null;
+  coverImageUrl?: string;
   estimatedDurationInSeconds: number;
   exercisesCount: number;
 };
 
-export type GetWorkoutPlan200Plan = {
+export type GetWorkoutPlan200 = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
-  workoutDays: GetWorkoutPlan200PlanWorkoutDaysItem[];
-};
-
-export type GetWorkoutPlan200 = {
-  plan: GetWorkoutPlan200Plan;
+  workoutDays: GetWorkoutPlan200WorkoutDaysItem[];
 };
 
 export type GetWorkoutPlan401 = {
@@ -305,10 +296,10 @@ export type GetWorkoutPlan500 = {
   code: string;
 };
 
-export type GetWorkoutDay200DayWeekDay =
-  (typeof GetWorkoutDay200DayWeekDay)[keyof typeof GetWorkoutDay200DayWeekDay];
+export type GetWorkoutDay200WeekDay =
+  (typeof GetWorkoutDay200WeekDay)[keyof typeof GetWorkoutDay200WeekDay];
 
-export const GetWorkoutDay200DayWeekDay = {
+export const GetWorkoutDay200WeekDay = {
   SUNDAY: "SUNDAY",
   MONDAY: "MONDAY",
   TUESDAY: "TUESDAY",
@@ -318,7 +309,7 @@ export const GetWorkoutDay200DayWeekDay = {
   SATURDAY: "SATURDAY",
 } as const;
 
-export type GetWorkoutDay200DayExercisesItem = {
+export type GetWorkoutDay200ExercisesItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
@@ -330,7 +321,7 @@ export type GetWorkoutDay200DayExercisesItem = {
   restTimeInSeconds: number;
 };
 
-export type GetWorkoutDay200DayWorkoutSessionsItem = {
+export type GetWorkoutDay200WorkoutSessionsItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
@@ -341,20 +332,16 @@ export type GetWorkoutDay200DayWorkoutSessionsItem = {
   completedAt?: string;
 };
 
-export type GetWorkoutDay200Day = {
+export type GetWorkoutDay200 = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
   isRest: boolean;
   coverImageUrl?: string;
   estimatedDurationInSeconds: number;
-  weekDay: GetWorkoutDay200DayWeekDay;
-  exercises: GetWorkoutDay200DayExercisesItem[];
-  workoutSessions: GetWorkoutDay200DayWorkoutSessionsItem[];
-};
-
-export type GetWorkoutDay200 = {
-  day: GetWorkoutDay200Day;
+  weekDay: GetWorkoutDay200WeekDay;
+  exercises: GetWorkoutDay200ExercisesItem[];
+  workoutSessions: GetWorkoutDay200WorkoutSessionsItem[];
 };
 
 export type GetWorkoutDay401 = {
@@ -584,7 +571,7 @@ export const createWorkoutPlan = async (
  * @summary List workout plans
  */
 export type listWorkoutPlansResponse200 = {
-  data: ListWorkoutPlans200;
+  data: ListWorkoutPlans200Item[];
   status: 200;
 };
 
