@@ -426,23 +426,19 @@ export type GetStatsParams = {
   to: string;
 };
 
-export type GetStats200StatsConsistencyByDay = {
+export type GetStats200ConsistencyByDay = {
   [key: string]: {
     workoutDayCompleted: boolean;
     workoutDayStarted: boolean;
   };
 };
 
-export type GetStats200Stats = {
+export type GetStats200 = {
   workoutStreak: number;
-  consistencyByDay: GetStats200StatsConsistencyByDay;
+  consistencyByDay: GetStats200ConsistencyByDay;
   completedWorkoutsCount: number;
   conclusionRate: number;
   totalTimeInSeconds: number;
-};
-
-export type GetStats200 = {
-  stats: GetStats200Stats;
 };
 
 export type GetStats401 = {
