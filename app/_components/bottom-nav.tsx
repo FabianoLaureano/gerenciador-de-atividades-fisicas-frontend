@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { House, Calendar, ChartNoAxesColumn, UserRound } from "lucide-react";
+import {
+  House,
+  Calendar,
+  Sparkles,
+  ChartNoAxesColumn,
+  UserRound,
+} from "lucide-react";
 import dayjs from "dayjs";
 import { getHomeData } from "@/app/_lib/api/fetch-generated";
 import { cn } from "@/lib/utils";
@@ -50,7 +56,9 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
           />
         </button>
       )}
-
+      <button className="rounded-full bg-primary p-4">
+        <Sparkles className="size-6 text-primary-foreground" />
+      </button>
       <Link href="/stats" className="p-3">
         <ChartNoAxesColumn
           className={cn(
