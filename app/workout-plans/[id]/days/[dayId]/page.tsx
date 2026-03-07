@@ -156,7 +156,7 @@ export default async function WorkoutDayPage({
 
       <div className="flex flex-col gap-3 px-5 pt-5">
         {exercises
-          .sort((a, b) => a.order - b.order)
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
           .map((exercise) => (
             <ExerciseCard key={exercise.id} exercise={exercise} />
           ))}

@@ -33,16 +33,22 @@ export function ExerciseCard({ exercise }: ExerciseCardProps) {
         </Button>
       </div>
       <div className="flex items-center gap-1.5">
-        <span className="rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
-          {exercise.sets} séries
-        </span>
-        <span className="rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
-          {exercise.reps} reps
-        </span>
-        <span className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
-          <Zap className="size-3.5" />
-          {exercise.restTimeInSeconds}s
-        </span>
+        {exercise.sets && (
+          <span className="rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
+            {exercise.sets} séries
+          </span>
+        )}
+        {exercise.reps && (
+          <span className="rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
+            {exercise.reps} reps
+          </span>
+        )}
+        {exercise.restTimeInSeconds && (
+          <span className="flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 font-heading text-xs font-semibold uppercase text-muted-foreground">
+            <Zap className="size-3.5" />
+            {exercise.restTimeInSeconds}s
+          </span>
+        )}
       </div>
     </div>
   );

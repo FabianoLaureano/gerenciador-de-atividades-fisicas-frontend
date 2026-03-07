@@ -80,11 +80,11 @@ export const CreateWorkoutPlan201WorkoutDaysItemWeekDay = {
 export type CreateWorkoutPlan201WorkoutDaysItemExercisesItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
-  order: number;
+  order?: number;
   name: string;
-  sets: number;
-  reps: number;
-  restTimeInSeconds: number;
+  sets?: number;
+  reps?: number;
+  restTimeInSeconds?: number;
 };
 
 export type CreateWorkoutPlan201WorkoutDaysItem = {
@@ -154,11 +154,11 @@ export const ListWorkoutPlans200ItemWorkoutDaysItemWeekDay = {
 export type ListWorkoutPlans200ItemWorkoutDaysItemExercisesItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
-  order: number;
+  order?: number;
   name: string;
-  sets: number;
-  reps: number;
-  restTimeInSeconds: number;
+  sets?: number;
+  reps?: number;
+  restTimeInSeconds?: number;
 };
 
 export type ListWorkoutPlans200ItemWorkoutDaysItem = {
@@ -313,12 +313,12 @@ export type GetWorkoutDay200ExercisesItem = {
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   id: string;
   name: string;
-  order: number;
+  order?: number;
   /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
   workoutDayId: string;
-  sets: number;
-  reps: number;
-  restTimeInSeconds: number;
+  sets?: number;
+  reps?: number;
+  restTimeInSeconds?: number;
 };
 
 export type GetWorkoutDay200WorkoutSessionsItem = {
