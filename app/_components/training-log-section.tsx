@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { TrainingLogModal } from "./training-log-modal";
 import type { GetTrainingLogs200Item } from "@/app/_lib/api/fetch-generated";
+import Link from "next/link";
 
 interface TrainingLogSectionProps {
   latestTrainingLog: GetTrainingLogs200Item | null;
@@ -27,9 +28,12 @@ export function TrainingLogSection({
             >
               + Adicionar
             </button>
-            <button className="font-heading text-xs text-primary">
+            <Link
+              href="/training-logs"
+              className="font-heading text-xs text-primary"
+            >
               Ver histórico
-            </button>
+            </Link>
           </div>
         </div>
 
