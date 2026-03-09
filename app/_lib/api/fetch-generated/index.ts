@@ -499,6 +499,27 @@ export type UpsertUserTrainData200 = {
   bodyFatPercentage: number;
 };
 
+export type CreateTrainingLogBody = {
+  name?: string;
+  description?: string;
+};
+
+export type CreateTrainingLog201 = {
+  /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: string;
+};
+
+export type GetTrainingLogs200Item = {
+  /** @pattern ^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$ */
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: string;
+};
+
 export type GetHealth200 = {
   status: string;
 };
@@ -1065,6 +1086,61 @@ export const upsertUserTrainData = async (
     method: "PUT",
     headers: { "Content-Type": "application/json", ...options?.headers },
     body: JSON.stringify(upsertUserTrainDataBody),
+  });
+};
+
+/**
+ * @summary Create a training log
+ */
+export type createTrainingLogResponse201 = {
+  data: CreateTrainingLog201;
+  status: 201;
+};
+
+export type createTrainingLogResponseSuccess = createTrainingLogResponse201 & {
+  headers: Headers;
+};
+export type createTrainingLogResponse = createTrainingLogResponseSuccess;
+
+export const getCreateTrainingLogUrl = () => {
+  return `/training-logs/`;
+};
+
+export const createTrainingLog = async (
+  createTrainingLogBody: CreateTrainingLogBody,
+  options?: RequestInit,
+): Promise<createTrainingLogResponse> => {
+  return customFetch<createTrainingLogResponse>(getCreateTrainingLogUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createTrainingLogBody),
+  });
+};
+
+/**
+ * @summary List training logs
+ */
+export type getTrainingLogsResponse200 = {
+  data: GetTrainingLogs200Item[];
+  status: 200;
+};
+
+export type getTrainingLogsResponseSuccess = getTrainingLogsResponse200 & {
+  headers: Headers;
+};
+export type getTrainingLogsResponse = getTrainingLogsResponseSuccess;
+
+export const getGetTrainingLogsUrl = () => {
+  return `/training-logs/`;
+};
+
+export const getTrainingLogs = async (
+  options?: RequestInit,
+): Promise<getTrainingLogsResponse> => {
+  return customFetch<getTrainingLogsResponse>(getGetTrainingLogsUrl(), {
+    ...options,
+    method: "GET",
   });
 };
 

@@ -1,7 +1,11 @@
 import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
 import { headers } from "next/headers";
-import { getHomeData, getUserTrainData } from "./_lib/api/fetch-generated";
+import {
+  getHomeData,
+  getUserTrainData,
+  getTrainingLogs,
+} from "./_lib/api/fetch-generated";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,6 +13,7 @@ import { Flame } from "lucide-react";
 import { BottomNav } from "./_components/bottom-nav";
 import { ConsistencyTracker } from "./_components/consistency-tracker";
 import { WorkoutDayCard } from "./_components/workout-day-card";
+import { TrainingLogSection } from "./_components/training-log-section";
 
 export default async function Home() {
   const session = await authClient.getSession({
@@ -20,9 +25,11 @@ export default async function Home() {
   if (!session.data?.user) redirect("/auth");
 
   const today = dayjs();
-  const [homeData, trainData] = await Promise.all([
+
+  const [homeData, trainData, trainingLogsData] = await Promise.all([
     getHomeData(today.format("YYYY-MM-DD")),
     getUserTrainData(),
+    getTrainingLogs(),
   ]);
 
   if (homeData.status !== 200) {
@@ -36,6 +43,11 @@ export default async function Home() {
 
   const { todayWorkoutDay, workoutStreak, consistencyByDay } = homeData.data;
   const userName = session.data.user.name?.split(" ")[0] ?? "";
+
+  const latestTrainingLog =
+    trainingLogsData.status === 200 && trainingLogsData.data.length > 0
+      ? trainingLogsData.data[0]
+      : null;
 
   return (
     <div className="flex min-h-svh flex-col bg-background pb-24">
@@ -111,7 +123,7 @@ export default async function Home() {
         <div className="flex flex-col gap-3 p-5">
           <div className="flex items-center justify-between">
             <h2 className="font-heading text-lg font-semibold text-foreground">
-              Treino de Hoje
+              Treino de Hoje (Plano de Treino)
             </h2>
             <button className="font-heading text-xs text-primary">
               Ver treinos
@@ -133,6 +145,8 @@ export default async function Home() {
           </Link>
         </div>
       )}
+
+      <TrainingLogSection latestTrainingLog={latestTrainingLog} />
 
       <BottomNav />
     </div>
