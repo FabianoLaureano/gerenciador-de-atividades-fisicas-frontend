@@ -5,8 +5,9 @@ import { getUserTrainData, getHomeData } from "@/app/_lib/api/fetch-generated";
 import dayjs from "dayjs";
 import { BottomNav } from "@/app/_components/bottom-nav";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Weight, Ruler, BicepsFlexed, User } from "lucide-react";
+import { Weight, Ruler, BicepsFlexed, User, Activity, Zap } from "lucide-react";
 import { LogoutButton } from "./_components/logout-button";
+import { calculateBMI, calculateBMR } from "@/lib/utils/fitness-calculations";
 
 export default async function ProfilePage() {
   const session = await authClient.getSession({
@@ -38,6 +39,14 @@ export default async function ProfilePage() {
   const heightInCm = data?.heightInCentimeters ?? null;
   const bodyFatPercentage = data?.bodyFatPercentage ?? null;
   const age = data?.age ?? null;
+  const gender = data?.gender ?? null;
+
+  const bmi =
+    weightInKg && heightInCm ? calculateBMI(weightInKg, heightInCm) : null;
+  const bmr =
+    weightInKg && heightInCm && age && gender
+      ? calculateBMR(weightInKg, heightInCm, age, gender)
+      : null;
 
   return (
     <div className="flex min-h-svh flex-col bg-background pb-24">
@@ -123,6 +132,34 @@ export default async function ProfilePage() {
               </span>
               <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
                 Anos
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
+              <Activity className="size-4 text-primary" />
+            </div>
+            <div className="flex flex-col items-center gap-1.5">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+                {bmi ?? "-"}
+              </span>
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+                IMC
+              </span>
+            </div>
+          </div>
+
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
+              <Zap className="size-4 text-primary" />
+            </div>
+            <div className="flex flex-col items-center gap-1.5">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+                {bmr ?? "-"}
+              </span>
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+                TMB
               </span>
             </div>
           </div>

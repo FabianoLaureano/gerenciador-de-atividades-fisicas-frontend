@@ -470,6 +470,7 @@ export type GetUserTrainData200 = {
    * @maximum 100
    */
   bodyFatPercentage: number;
+  gender: string;
 } | null;
 
 export type UpsertUserTrainDataBody = {
@@ -484,6 +485,8 @@ export type UpsertUserTrainDataBody = {
    * @maximum 100
    */
   bodyFatPercentage: number;
+  /** @minLength 1 */
+  gender: string;
 };
 
 export type UpsertUserTrainData200 = {
@@ -497,6 +500,7 @@ export type UpsertUserTrainData200 = {
    * @maximum 100
    */
   bodyFatPercentage: number;
+  gender: string;
 };
 
 export type CreateTrainingLogBody = {
