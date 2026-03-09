@@ -524,6 +524,58 @@ export type GetTrainingLogs200Item = {
   createdAt: string;
 };
 
+export type CreateUserGoalBody = {
+  /** @minLength 1 */
+  title: string;
+  currentValue?: string;
+  targetValue?: string;
+};
+
+export type CreateUserGoal201 = {
+  id: string;
+  title: string;
+  currentValue?: string;
+  targetValue?: string;
+  completedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type GetUserGoals200Item = {
+  id: string;
+  title: string;
+  currentValue?: string;
+  targetValue?: string;
+  completedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type UpdateGoalProgressBody = {
+  /** @minLength 1 */
+  currentValue: string;
+};
+
+export type UpdateGoalProgress200 = {
+  id: string;
+  title: string;
+  currentValue?: string;
+  targetValue?: string;
+  completedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
+export type CompleteUserGoal200 = {
+  id: string;
+  title: string;
+  currentValue?: string;
+  targetValue?: string;
+  completedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 export type GetHealth200 = {
   status: string;
 };
@@ -1145,6 +1197,119 @@ export const getTrainingLogs = async (
   return customFetch<getTrainingLogsResponse>(getGetTrainingLogsUrl(), {
     ...options,
     method: "GET",
+  });
+};
+
+/**
+ * @summary Create a user goal
+ */
+export type createUserGoalResponse201 = {
+  data: CreateUserGoal201;
+  status: 201;
+};
+
+export type createUserGoalResponseSuccess = createUserGoalResponse201 & {
+  headers: Headers;
+};
+export type createUserGoalResponse = createUserGoalResponseSuccess;
+
+export const getCreateUserGoalUrl = () => {
+  return `/user-goals/`;
+};
+
+export const createUserGoal = async (
+  createUserGoalBody: CreateUserGoalBody,
+  options?: RequestInit,
+): Promise<createUserGoalResponse> => {
+  return customFetch<createUserGoalResponse>(getCreateUserGoalUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(createUserGoalBody),
+  });
+};
+
+/**
+ * @summary List user goals
+ */
+export type getUserGoalsResponse200 = {
+  data: GetUserGoals200Item[];
+  status: 200;
+};
+
+export type getUserGoalsResponseSuccess = getUserGoalsResponse200 & {
+  headers: Headers;
+};
+export type getUserGoalsResponse = getUserGoalsResponseSuccess;
+
+export const getGetUserGoalsUrl = () => {
+  return `/user-goals/`;
+};
+
+export const getUserGoals = async (
+  options?: RequestInit,
+): Promise<getUserGoalsResponse> => {
+  return customFetch<getUserGoalsResponse>(getGetUserGoalsUrl(), {
+    ...options,
+    method: "GET",
+  });
+};
+
+/**
+ * @summary Update goal progress
+ */
+export type updateGoalProgressResponse200 = {
+  data: UpdateGoalProgress200;
+  status: 200;
+};
+
+export type updateGoalProgressResponseSuccess =
+  updateGoalProgressResponse200 & {
+    headers: Headers;
+  };
+export type updateGoalProgressResponse = updateGoalProgressResponseSuccess;
+
+export const getUpdateGoalProgressUrl = (id: string) => {
+  return `/user-goals/${id}/progress`;
+};
+
+export const updateGoalProgress = async (
+  id: string,
+  updateGoalProgressBody: UpdateGoalProgressBody,
+  options?: RequestInit,
+): Promise<updateGoalProgressResponse> => {
+  return customFetch<updateGoalProgressResponse>(getUpdateGoalProgressUrl(id), {
+    ...options,
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(updateGoalProgressBody),
+  });
+};
+
+/**
+ * @summary Complete a user goal
+ */
+export type completeUserGoalResponse200 = {
+  data: CompleteUserGoal200;
+  status: 200;
+};
+
+export type completeUserGoalResponseSuccess = completeUserGoalResponse200 & {
+  headers: Headers;
+};
+export type completeUserGoalResponse = completeUserGoalResponseSuccess;
+
+export const getCompleteUserGoalUrl = (id: string) => {
+  return `/user-goals/${id}/complete`;
+};
+
+export const completeUserGoal = async (
+  id: string,
+  options?: RequestInit,
+): Promise<completeUserGoalResponse> => {
+  return customFetch<completeUserGoalResponse>(getCompleteUserGoalUrl(id), {
+    ...options,
+    method: "PATCH",
   });
 };
 
