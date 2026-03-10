@@ -18,6 +18,8 @@ export default async function Home() {
     },
   });
 
+  console.log("session", session.data);
+
   if (!session.data?.user) redirect("/auth");
 
   const today = dayjs();
