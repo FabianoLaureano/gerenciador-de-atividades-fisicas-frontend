@@ -18,6 +18,9 @@ export default async function Home() {
     },
   });
 
+  const h = await headers();
+  console.log("cookies", h.get("cookie"));
+
   console.log("session", session.data);
 
   if (!session.data?.user) redirect("/auth");
