@@ -15,7 +15,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `https://gerenciador-de-atividades-fisicas-a.vercel.app/api/auth/:path*`,
+        destination: `https://gerenciador-de-atividades-fisicas-a.vercel.app/api/:path*`,
       },
     ];
   },
