@@ -20,7 +20,7 @@ export default async function AuthPage() {
           src="/login-bg.png"
           alt=""
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
         />
         <div
@@ -49,10 +49,6 @@ export default async function AuthPage() {
         </div>
 
         <AuthTabs />
-
-        <p className="text-center font-heading text-xs text-white/30">
-          ©2026 Copyright FIT.AI. Todos os direitos reservados
-        </p>
       </div>
     </div>
   );
