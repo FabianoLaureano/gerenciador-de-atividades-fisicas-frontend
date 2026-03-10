@@ -21,6 +21,8 @@ export function LoginForm() {
         email,
         password,
       });
+      console.log("result", result);
+      console.log("error", result.error);
       if (result.error) {
         setError("Email ou senha incorretos.");
         return;
