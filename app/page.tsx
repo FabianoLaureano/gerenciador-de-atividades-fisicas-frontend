@@ -1,11 +1,7 @@
 import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
 import { headers } from "next/headers";
-import {
-  getHomeData,
-  getUserTrainData,
-  getTrainingLogs,
-} from "./_lib/api/fetch-generated";
+import { getHomeData, getTrainingLogs } from "./_lib/api/fetch-generated";
 import dayjs from "dayjs";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,23 +22,18 @@ export default async function Home() {
 
   const today = dayjs();
 
-  const [homeData, trainData, trainingLogsData] = await Promise.all([
+  const [homeData, trainingLogsData] = await Promise.all([
     getHomeData(today.format("YYYY-MM-DD")),
-    getUserTrainData(),
     getTrainingLogs(),
   ]);
 
-  if (homeData.status !== 200) {
-    throw new Error("Failed to fetch home data");
-  }
-
-  const needsOnboarding =
-    !homeData.data.activeWorkoutPlanId ||
-    (trainData.status === 200 && !trainData.data);
-  if (needsOnboarding) redirect("/onboarding");
-
-  const { todayWorkoutDay, workoutStreak, consistencyByDay } = homeData.data;
   const userName = session.data.user.name?.split(" ")[0] ?? "";
+
+  const hasActivePlan =
+    homeData.status === 200 && homeData.data.activeWorkoutPlanId;
+  const todayWorkoutDay = hasActivePlan ? homeData.data.todayWorkoutDay : null;
+  const workoutStreak = hasActivePlan ? homeData.data.workoutStreak : 0;
+  const consistencyByDay = hasActivePlan ? homeData.data.consistencyByDay : {};
 
   const latestTrainingLog =
     trainingLogsData.status === 200 && trainingLogsData.data.length > 0
@@ -93,31 +84,33 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-3 px-5 pt-5">
-        <div className="flex items-center justify-between">
-          <h2 className="font-heading text-lg font-semibold text-foreground">
-            Consistência
-          </h2>
-          <Link href="/stats" className="font-heading text-xs text-primary">
-            Ver histórico
-          </Link>
-        </div>
+      {hasActivePlan && (
+        <div className="flex flex-col gap-3 px-5 pt-5">
+          <div className="flex items-center justify-between">
+            <h2 className="font-heading text-lg font-semibold text-foreground">
+              Consistência
+            </h2>
+            <Link href="/stats" className="font-heading text-xs text-primary">
+              Ver histórico
+            </Link>
+          </div>
 
-        <div className="flex items-center gap-3">
-          <div className="flex-1 rounded-xl border border-border p-5">
-            <ConsistencyTracker
-              consistencyByDay={consistencyByDay}
-              today={today}
-            />
-          </div>
-          <div className="flex items-center gap-2 self-stretch rounded-xl bg-streak px-5 py-2">
-            <Flame className="size-5 text-streak-foreground" />
-            <span className="font-heading text-base font-semibold text-foreground">
-              {workoutStreak}
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex-1 rounded-xl border border-border p-5">
+              <ConsistencyTracker
+                consistencyByDay={consistencyByDay}
+                today={today}
+              />
+            </div>
+            <div className="flex items-center gap-2 self-stretch rounded-xl bg-streak px-5 py-2">
+              <Flame className="size-5 text-streak-foreground" />
+              <span className="font-heading text-base font-semibold text-foreground">
+                {workoutStreak}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {todayWorkoutDay && (
         <div className="flex flex-col gap-3 p-5">

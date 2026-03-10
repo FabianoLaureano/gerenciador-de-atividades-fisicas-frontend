@@ -15,7 +15,11 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
-const SUGGESTED_MESSAGES = ["Monte meu plano de treino"];
+const SUGGESTED_MESSAGES = [
+  "Monte meu plano de treino",
+  "Atualize meus dados",
+  "Cadastrar meu treino",
+];
 
 const chatFormSchema = z.object({
   message: z.string().min(1),

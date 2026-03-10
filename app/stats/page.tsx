@@ -1,11 +1,7 @@
 import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
 import { headers } from "next/headers";
-import {
-  getStats,
-  getHomeData,
-  getUserTrainData,
-} from "@/app/_lib/api/fetch-generated";
+import { getStats } from "@/app/_lib/api/fetch-generated";
 import dayjs from "dayjs";
 import { CircleCheck, CirclePercent, Hourglass } from "lucide-react";
 import { BottomNav } from "@/app/_components/bottom-nav";
@@ -32,28 +28,19 @@ export default async function StatsPage() {
   const from = today.subtract(2, "month").startOf("month").format("YYYY-MM-DD");
   const to = today.format("YYYY-MM-DD");
 
-  const [statsResponse, homeData, trainData] = await Promise.all([
-    getStats({ from, to }),
-    getHomeData(today.format("YYYY-MM-DD")),
-    getUserTrainData(),
-  ]);
+  const statsResponse = await getStats({ from, to });
 
-  const needsOnboarding =
-    (homeData.status === 200 && !homeData.data.activeWorkoutPlanId) ||
-    (trainData.status === 200 && !trainData.data);
-  if (needsOnboarding) redirect("/onboarding");
+  const hasStats = statsResponse.status === 200;
 
-  if (statsResponse.status !== 200) {
-    throw new Error("Failed to fetch stats");
-  }
-
-  const {
-    workoutStreak,
-    consistencyByDay,
-    completedWorkoutsCount,
-    conclusionRate,
-    totalTimeInSeconds,
-  } = statsResponse.data;
+  const workoutStreak = hasStats ? statsResponse.data.workoutStreak : 0;
+  const consistencyByDay = hasStats ? statsResponse.data.consistencyByDay : {};
+  const completedWorkoutsCount = hasStats
+    ? statsResponse.data.completedWorkoutsCount
+    : 0;
+  const conclusionRate = hasStats ? statsResponse.data.conclusionRate : 0;
+  const totalTimeInSeconds = hasStats
+    ? statsResponse.data.totalTimeInSeconds
+    : 0;
 
   return (
     <div className="flex min-h-svh flex-col bg-background pb-24">

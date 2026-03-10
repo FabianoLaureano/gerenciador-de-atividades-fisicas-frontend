@@ -1,12 +1,7 @@
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { authClient } from "@/app/_lib/auth-client";
-import {
-  getUserTrainData,
-  getHomeData,
-  getUserGoals,
-} from "@/app/_lib/api/fetch-generated";
-import dayjs from "dayjs";
+import { getUserTrainData, getUserGoals } from "@/app/_lib/api/fetch-generated";
 import { BottomNav } from "@/app/_components/bottom-nav";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Weight, Ruler, BicepsFlexed, User, Activity, Zap } from "lucide-react";
@@ -23,23 +18,13 @@ export default async function ProfilePage() {
 
   if (!session.data?.user) redirect("/auth");
 
-  const [trainData, homeData, goalsData] = await Promise.all([
+  const [trainData, goalsData] = await Promise.all([
     getUserTrainData(),
-    getHomeData(dayjs().format("YYYY-MM-DD")),
     getUserGoals(),
   ]);
 
-  if (trainData.status !== 200) {
-    throw new Error("Failed to fetch user train data");
-  }
-
-  const needsOnboarding =
-    (homeData.status === 200 && !homeData.data.activeWorkoutPlanId) ||
-    !trainData.data;
-  if (needsOnboarding) redirect("/onboarding");
-
   const user = session.data.user;
-  const data = trainData.data;
+  const data = trainData.status === 200 ? trainData.data : null;
 
   const weightInKg = data ? data.weightInGrams / 1000 : null;
   const heightInCm = data?.heightInCentimeters ?? null;
