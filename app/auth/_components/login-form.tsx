@@ -21,12 +21,13 @@ export function LoginForm() {
         email,
         password,
       });
-      console.log("result", result);
-      console.log("error", result.error);
+      console.log("1 - result", result);
       if (result.error) {
+        console.log("2 - error", result.error);
         setError("Email ou senha incorretos.");
         return;
       }
+      console.log("3 - redirecting");
       router.push("/");
       router.refresh();
     } finally {
