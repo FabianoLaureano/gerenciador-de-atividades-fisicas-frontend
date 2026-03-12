@@ -40,7 +40,7 @@ export default async function AuthPage() {
 
       <div className="relative z-10 flex flex-col gap-6 rounded-t-[20px] bg-black/80 px-5 pb-10 pt-8 backdrop-blur-sm">
         <div className="flex flex-col gap-1.5">
-          <h1 className="font-heading text-[28px] font-semibold leading-[1.05] text-white">
+          <h1 className="font-heading text-[22px] font-semibold leading-[1.05] text-white">
             Transforme seus treinos com IA.
           </h1>
           <p className="font-heading text-sm text-white/50">

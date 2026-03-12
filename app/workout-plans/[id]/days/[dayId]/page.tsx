@@ -15,6 +15,7 @@ import { BackButton } from "./_components/back-button";
 import { ExerciseCard } from "./_components/exercise-card";
 import { StartWorkoutButton } from "./_components/start-workout-button";
 import { CompleteWorkoutButton } from "./_components/complete-workout-button";
+import { getSession } from "@/app/_lib/get-session";
 
 const WEEKDAY_LABELS: Record<string, string> = {
   MONDAY: "SEGUNDA",
@@ -41,13 +42,8 @@ export default async function WorkoutDayPage({
 }: {
   params: Promise<{ id: string; dayId: string }>;
 }) {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
 
   const { id: workoutPlanId, dayId } = await params;
   const [workoutDayData, homeData, trainData] = await Promise.all([

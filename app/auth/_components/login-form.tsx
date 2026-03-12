@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/app/_lib/auth-client";
+import { saveToken } from "@/app/_lib/auth";
 import { SignInWithGoogle } from "./sign-in-with-google";
 
 export function LoginForm() {
@@ -17,17 +17,19 @@ export function LoginForm() {
     setIsLoading(true);
     setError("");
     try {
-      const result = await authClient.signIn.email({
-        email,
-        password,
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
-      console.log("1 - result", result);
-      if (result.error) {
-        console.log("2 - error", result.error);
+
+      if (!response.ok) {
         setError("Email ou senha incorretos.");
         return;
       }
-      console.log("3 - redirecting");
+
+      const data = await response.json();
+      saveToken(data.token);
       router.push("/");
       router.refresh();
     } finally {

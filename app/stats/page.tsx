@@ -8,6 +8,7 @@ import { BottomNav } from "@/app/_components/bottom-nav";
 import { StreakBanner } from "./_components/streak-banner";
 import { StatsHeatmap } from "./_components/stats-heatmap";
 import { StatCard } from "./_components/stat-card";
+import { getSession } from "@/app/_lib/get-session";
 
 function formatTotalTime(totalSeconds: number): string {
   const hours = Math.floor(totalSeconds / 3600);
@@ -16,13 +17,9 @@ function formatTotalTime(totalSeconds: number): string {
 }
 
 export default async function StatsPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
+  const userName = session.name.split(" ")[0];
 
   const today = dayjs();
   const from = today.subtract(2, "month").startOf("month").format("YYYY-MM-DD");

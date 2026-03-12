@@ -41,7 +41,9 @@ export function Chat({ embedded = false, initialMessage }: ChatProps) {
   const { messages, sendMessage, status } = useChat({
     transport: new DefaultChatTransport({
       api: `${process.env.NEXT_PUBLIC_API_URL}/ai`,
-      credentials: "include",
+      headers: {
+        Authorization: `Bearer ${typeof window !== "undefined" ? (localStorage.getItem("fit-ai-token") ?? "") : ""}`,
+      },
     }),
   });
 

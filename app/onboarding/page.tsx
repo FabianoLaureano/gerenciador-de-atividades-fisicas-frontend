@@ -4,15 +4,11 @@ import { headers } from "next/headers";
 import { getHomeData, getUserTrainData } from "@/app/_lib/api/fetch-generated";
 import dayjs from "dayjs";
 import { Chat } from "@/app/_components/chat";
+import { getSession } from "@/app/_lib/get-session";
 
 export default async function OnboardingPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
 
   const [homeData, trainData] = await Promise.all([
     getHomeData(dayjs().format("YYYY-MM-DD")),

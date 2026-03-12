@@ -8,15 +8,11 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Trophy } from "lucide-react";
 import dayjs from "dayjs";
+import { getSession } from "@/app/_lib/get-session";
 
 export default async function CompletedGoalsPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
 
   const goalsData = await getUserGoals();
 

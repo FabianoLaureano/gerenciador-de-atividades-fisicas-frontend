@@ -8,22 +8,18 @@ import { Weight, Ruler, BicepsFlexed, User, Activity, Zap } from "lucide-react";
 import { LogoutButton } from "./_components/logout-button";
 import { calculateBMI, calculateBMR } from "@/lib/utils/fitness-calculations";
 import { UserGoalsSection } from "./_components/user-goals-section";
+import { getSession } from "@/app/_lib/get-session";
 
 export default async function ProfilePage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
+  const userName = session.name.split(" ")[0];
 
   const [trainData, goalsData] = await Promise.all([
     getUserTrainData(),
     getUserGoals(),
   ]);
 
-  const user = session.data.user;
   const data = trainData.status === 200 ? trainData.data : null;
 
   const weightInKg = data ? data.weightInGrams / 1000 : null;
@@ -56,14 +52,13 @@ export default async function ProfilePage() {
         <div className="flex w-full items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar className="size-[52px]">
-              <AvatarImage src={user.image ?? undefined} alt={user.name} />
               <AvatarFallback className="text-lg">
-                {user.name?.charAt(0)?.toUpperCase()}
+                {session.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
             <div className="flex flex-col gap-1.5">
               <h1 className="font-heading text-lg font-semibold leading-[1.05] text-foreground">
-                {user.name}
+                {userName}
               </h1>
               <p className="font-heading text-sm leading-[1.15] text-foreground/70">
                 Plano Basico

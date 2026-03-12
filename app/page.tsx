@@ -10,20 +10,12 @@ import { BottomNav } from "./_components/bottom-nav";
 import { ConsistencyTracker } from "./_components/consistency-tracker";
 import { WorkoutDayCard } from "./_components/workout-day-card";
 import { TrainingLogSection } from "./_components/training-log-section";
+import { getSession } from "./_lib/get-session";
 
 export default async function Home() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  const h = await headers();
-  console.log("cookies", h.get("cookie"));
-
-  console.log("session", session.data);
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
+  const userName = session.name.split(" ")[0];
 
   const today = dayjs();
 
@@ -31,8 +23,6 @@ export default async function Home() {
     getHomeData(today.format("YYYY-MM-DD")),
     getTrainingLogs(),
   ]);
-
-  const userName = session.data.user.name?.split(" ")[0] ?? "";
 
   const hasActivePlan =
     homeData.status === 200 && homeData.data.activeWorkoutPlanId;

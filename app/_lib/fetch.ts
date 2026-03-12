@@ -6,15 +6,16 @@ const getBody = <T>(c: Response | Request): Promise<T> => {
 
 const getUrl = (contextUrl: string): string => {
   const newUrl = new URL(`${process.env.NEXT_PUBLIC_API_URL}${contextUrl}`);
-  const requestUrl = new URL(`${newUrl}`);
-  return requestUrl.toString();
+  return newUrl.toString();
 };
 
 const getHeaders = async (headers?: HeadersInit): Promise<HeadersInit> => {
   const _cookies = await cookies();
+  const token = _cookies.get("fit-ai-token")?.value;
+
   return {
     ...headers,
-    cookie: _cookies.toString(),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 };
 
@@ -28,7 +29,6 @@ export const customFetch = async <T>(
   const requestInit: RequestInit = {
     ...options,
     headers: requestHeaders,
-    credentials: "include",
   };
 
   const response = await fetch(requestUrl, requestInit);

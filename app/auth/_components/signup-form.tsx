@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/app/_lib/auth-client";
+import { saveToken } from "@/app/_lib/auth";
 import { SignInWithGoogle } from "./sign-in-with-google";
 
 export function SignupForm() {
@@ -18,15 +18,32 @@ export function SignupForm() {
     setIsLoading(true);
     setError("");
     try {
-      const result = await authClient.signUp.email({
-        name,
-        email,
-        password,
-      });
-      if (result.error) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        },
+      );
+
+      if (!response.ok) {
         setError("Erro ao criar conta. Tente novamente.");
         return;
       }
+
+      // após cadastro faz login automaticamente
+      const loginResponse = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        },
+      );
+
+      const data = await loginResponse.json();
+      saveToken(data.token);
       router.push("/");
       router.refresh();
     } finally {

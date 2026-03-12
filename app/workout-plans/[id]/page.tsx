@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { BottomNav } from "@/app/_components/bottom-nav";
 import { WorkoutDayCard } from "@/app/_components/workout-day-card";
 import { RestDayCard } from "./_components/rest-day-card";
+import { getSession } from "@/app/_lib/get-session";
 
 const WEEKDAY_ORDER = [
   "MONDAY",
@@ -30,13 +31,8 @@ export default async function WorkoutPlanPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
 
   const { id } = await params;
   const [workoutPlanData, homeData, trainData] = await Promise.all([

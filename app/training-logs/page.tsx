@@ -8,15 +8,12 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { ClipboardList } from "lucide-react";
 import dayjs from "dayjs";
+import { getSession } from "@/app/_lib/get-session";
 
 export default async function TrainingLogsPage() {
-  const session = await authClient.getSession({
-    fetchOptions: {
-      headers: await headers(),
-    },
-  });
-
-  if (!session.data?.user) redirect("/auth");
+  const session = await getSession();
+  if (!session) redirect("/auth");
+  const userName = session.name.split(" ")[0];
 
   const trainingLogsData = await getTrainingLogs();
 
