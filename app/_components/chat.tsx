@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useState } from "react";
 
 const SUGGESTED_MESSAGES = [
   "Monte meu plano de treino",
@@ -39,12 +38,18 @@ export function Chat({ embedded = false, initialMessage }: ChatProps) {
     chat_initial_message: parseAsString,
   });
 
+  const token =
+    typeof window !== "undefined"
+      ? (localStorage.getItem("fit-ai-token") ?? "")
+      : "";
+
   const { messages, sendMessage, status } = useChat({
+    id: token,
     transport: new DefaultChatTransport({
       api: `${process.env.NEXT_PUBLIC_API_URL}/ai`,
-      headers: () => ({
-        Authorization: `Bearer ${localStorage.getItem("fit-ai-token") ?? ""}`,
-      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }),
   });
 
