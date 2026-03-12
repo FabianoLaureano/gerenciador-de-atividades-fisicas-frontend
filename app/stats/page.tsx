@@ -19,7 +19,6 @@ function formatTotalTime(totalSeconds: number): string {
 export default async function StatsPage() {
   const session = await getSession();
   if (!session) redirect("/auth");
-  const userName = session.name.split(" ")[0];
 
   const today = dayjs();
   const from = today.subtract(2, "month").startOf("month").format("YYYY-MM-DD");
@@ -65,19 +64,19 @@ export default async function StatsPage() {
           <StatCard
             icon={CircleCheck}
             value={String(completedWorkoutsCount)}
-            label="Treinos Feitos"
+            label="Treinos Feitos (Plano de treino)"
           />
           <StatCard
             icon={CirclePercent}
             value={`${Math.round(conclusionRate * 100)}%`}
-            label="Taxa de conclusão"
+            label="Taxa de conclusão (Plano de treino)"
           />
         </div>
 
         <StatCard
           icon={Hourglass}
           value={formatTotalTime(totalTimeInSeconds)}
-          label="Tempo Total"
+          label="Tempo Total (Plano de treino)"
         />
       </div>
 
