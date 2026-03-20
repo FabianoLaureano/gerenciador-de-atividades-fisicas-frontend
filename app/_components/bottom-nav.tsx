@@ -19,22 +19,22 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
       : null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-6 rounded-t-[20px] border border-border bg-background px-6 py-4">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-center gap-6 border-t border-white/5 bg-background/70 px-6 py-4 backdrop-blur-md">
       <Link href="/" className="p-3">
         <House
           className={cn(
-            "size-6",
-            activePage === "home" ? "text-foreground" : "text-muted-foreground",
+            "size-6 transition-colors duration-200",
+            activePage === "home" ? "text-[#C5A065]" : "text-muted-foreground",
           )}
         />
       </Link>
       {calendarHref ? (
         <Link href={calendarHref} className="p-3">
           <Calendar
-            className={cn(
-              "size-6",
+             className={cn(
+              "size-6 transition-colors duration-200",
               activePage === "calendar"
-                ? "text-foreground"
+                ? "text-[#C5A065]"
                 : "text-muted-foreground",
             )}
           />
@@ -43,9 +43,9 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
         <button className="p-3">
           <Calendar
             className={cn(
-              "size-6",
+              "size-6 transition-colors duration-200",
               activePage === "calendar"
-                ? "text-foreground"
+                ? "text-[#C5A065]"
                 : "text-muted-foreground",
             )}
           />
@@ -55,9 +55,9 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
       <Link href="/stats" className="p-3">
         <ChartNoAxesColumn
           className={cn(
-            "size-6",
+            "size-6 transition-colors duration-200",
             activePage === "stats"
-              ? "text-foreground"
+              ? "text-[#C5A065]"
               : "text-muted-foreground",
           )}
         />
@@ -65,9 +65,9 @@ export async function BottomNav({ activePage = "home" }: BottomNavProps) {
       <Link href="/profile" className="p-3">
         <UserRound
           className={cn(
-            "size-6",
+            "size-6 transition-colors duration-200",
             activePage === "profile"
-              ? "text-foreground"
+              ? "text-[#C5A065]"
               : "text-muted-foreground",
           )}
         />

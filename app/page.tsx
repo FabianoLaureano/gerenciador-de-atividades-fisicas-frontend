@@ -43,20 +43,16 @@ export default async function Home() {
             src="/home-banner.jpg"
             alt=""
             fill
-            className="object-cover"
+            className="object-cover brightness-90 contrast-125"
             priority
           />
           <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(243deg, rgba(0,0,0,0) 34%, rgb(0,0,0) 100%)",
-            }}
+            className="absolute inset-0 bg-gradient-to-tr from-black/80 via-black/40 to-transparent"
           />
         </div>
 
         <p
-          className="relative text-[22px] uppercase leading-[1.15] text-background"
+          className="relative text-[22px] uppercase leading-[1.15] text-white"
           style={{ fontFamily: "var(--font-anton)" }}
         >
           Fit.ai
@@ -64,15 +60,15 @@ export default async function Home() {
 
         <div className="relative flex w-full items-end justify-between">
           <div className="flex flex-col gap-1.5">
-            <h1 className="font-heading text-2xl font-semibold leading-[1.05] text-background">
+            <h1 className="font-heading text-2xl font-semibold leading-[1.05] text-white">
               Olá, {userName}
             </h1>
-            <p className="font-heading text-sm leading-[1.15] text-background/70">
+            <p className="font-heading text-sm leading-[1.15] text-white/70">
               Bora treinar hoje?
             </p>
           </div>
-          <div className="rounded-full bg-primary px-4 py-2">
-            <span className="font-heading text-sm font-semibold text-primary-foreground">
+          <div className="rounded-full bg-[#C5A065] px-4 py-2 hover:bg-[#B8935A] active:scale-[0.98] transition-all cursor-pointer">
+            <span className="font-heading text-sm font-semibold text-black">
               Bora!
             </span>
           </div>

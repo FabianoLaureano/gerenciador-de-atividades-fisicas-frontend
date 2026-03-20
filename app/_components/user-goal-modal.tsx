@@ -38,13 +38,13 @@ export function UserGoalModal({ isOpen, onClose }: UserGoalModalProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-5">
-      <div className="absolute inset-0 bg-foreground/30" onClick={onClose} />
-      <div className="relative z-10 w-full rounded-[20px] bg-background p-5 flex flex-col gap-5">
+      <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-10 w-full rounded-[20px] bg-card p-5 flex flex-col gap-5 border border-white/5 shadow-2xl">
         <div className="flex items-center justify-between">
-          <h2 className="font-heading text-lg font-semibold text-foreground">
+          <h2 className="font-heading text-lg font-semibold text-white">
             Nova Meta
           </h2>
-          <Button variant="ghost" size="icon" onClick={onClose}>
+          <Button variant="ghost" size="icon" onClick={onClose} className="text-white/70 hover:text-white hover:bg-white/10">
             <X className="size-5" />
           </Button>
         </div>
@@ -55,28 +55,28 @@ export function UserGoalModal({ isOpen, onClose }: UserGoalModalProps) {
             placeholder="Meta (ex: Chegar em 70kg)"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="rounded-xl border border-border bg-background px-4 py-3 font-heading text-sm text-foreground placeholder:text-muted-foreground outline-none"
+            className="rounded-xl border border-white/5 bg-secondary/50 px-4 py-3 font-heading text-sm text-white placeholder:text-muted-foreground outline-none focus:border-[#C5A065]/50 transition-colors"
           />
           <input
             type="text"
             placeholder="Valor atual (opcional, ex: 65kg)"
             value={currentValue}
             onChange={(e) => setCurrentValue(e.target.value)}
-            className="rounded-xl border border-border bg-background px-4 py-3 font-heading text-sm text-foreground placeholder:text-muted-foreground outline-none"
+            className="rounded-xl border border-white/5 bg-secondary/50 px-4 py-3 font-heading text-sm text-white placeholder:text-muted-foreground outline-none focus:border-[#C5A065]/50 transition-colors"
           />
           <input
             type="text"
             placeholder="Valor alvo (opcional, ex: 70kg)"
             value={targetValue}
             onChange={(e) => setTargetValue(e.target.value)}
-            className="rounded-xl border border-border bg-background px-4 py-3 font-heading text-sm text-foreground placeholder:text-muted-foreground outline-none"
+            className="rounded-xl border border-white/5 bg-secondary/50 px-4 py-3 font-heading text-sm text-white placeholder:text-muted-foreground outline-none focus:border-[#C5A065]/50 transition-colors"
           />
         </div>
 
         <Button
           onClick={handleSubmit}
           disabled={isLoading || !title.trim()}
-          className="w-full rounded-full"
+          className="w-full rounded-full bg-[#C5A065] text-black font-semibold hover:bg-[#B8935A] active:scale-[0.98] transition-all border-none"
         >
           {isLoading ? "Salvando..." : "Salvar"}
         </Button>

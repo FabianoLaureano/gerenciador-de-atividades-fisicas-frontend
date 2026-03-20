@@ -40,19 +40,19 @@ export function UserGoalsSection({ goals }: UserGoalsSectionProps) {
     <>
       <div className="flex w-full flex-col gap-3">
         <div className="flex items-center justify-between">
-          <h2 className="font-heading text-lg font-semibold text-foreground">
+          <h2 className="font-heading text-lg font-semibold text-white">
             Minhas Metas
           </h2>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsModalOpen(true)}
-              className="font-heading text-xs text-primary"
+              className="font-heading text-xs font-semibold text-[#C5A065] hover:text-[#B8935A] transition-colors"
             >
               + Adicionar
             </button>
             <Link
               href="/goals/completed"
-              className="font-heading text-xs text-primary"
+              className="font-heading text-xs font-semibold text-[#C5A065] hover:text-[#B8935A] transition-colors"
             >
               Ver concluídas
             </Link>
@@ -62,7 +62,7 @@ export function UserGoalsSection({ goals }: UserGoalsSectionProps) {
         {activeGoals.length === 0 ? (
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center rounded-xl border border-dashed border-border p-5 font-heading text-sm text-muted-foreground"
+            className="flex items-center justify-center rounded-xl border border-dashed border-white/10 p-5 font-heading text-sm text-muted-foreground hover:bg-white/5 transition-colors"
           >
             + Adicionar meta
           </button>
@@ -70,29 +70,29 @@ export function UserGoalsSection({ goals }: UserGoalsSectionProps) {
           activeGoals.map((goal) => (
             <div
               key={goal.id}
-              className="flex flex-col gap-3 rounded-xl border border-border p-5"
+              className="flex flex-col gap-3 rounded-xl border border-white/5 bg-card p-5 shadow-sm"
             >
               <div className="flex items-center justify-between">
-                <p className="font-heading text-base font-semibold text-foreground">
+                <p className="font-heading text-base font-semibold text-white">
                   {goal.title}
                 </p>
                 <button
                   onClick={() => handleComplete(goal.id)}
-                  className="flex items-center justify-center rounded-full bg-primary/10 p-1.5"
+                  className="flex items-center justify-center rounded-full bg-[#C5A065]/10 p-1.5 hover:bg-[#C5A065]/20 transition-colors"
                 >
-                  <Check className="size-3.5 text-primary" />
+                  <Check className="size-3.5 text-[#C5A065]" />
                 </button>
               </div>
 
               {(goal.currentValue || goal.targetValue) && (
                 <div className="flex items-center gap-2">
-                  <span className="font-heading text-sm text-muted-foreground">
+                  <span className="font-heading text-sm tabular-nums text-muted-foreground">
                     {goal.currentValue ?? "-"}
                   </span>
-                  <span className="font-heading text-xs text-muted-foreground">
+                  <span className="font-heading text-xs text-muted-foreground/50">
                     →
                   </span>
-                  <span className="font-heading text-sm text-primary">
+                  <span className="font-heading text-sm tabular-nums font-semibold text-[#C5A065]">
                     {goal.targetValue ?? "-"}
                   </span>
                 </div>
@@ -102,20 +102,20 @@ export function UserGoalsSection({ goals }: UserGoalsSectionProps) {
                 <div className="flex gap-2">
                   <input
                     type="text"
-                    placeholder="Novo valor atual"
+                    placeholder="Novo valor"
                     value={progressValue}
                     onChange={(e) => setProgressValue(e.target.value)}
-                    className="flex-1 rounded-xl border border-border bg-background px-3 py-2 font-heading text-sm text-foreground placeholder:text-muted-foreground outline-none"
+                    className="flex-1 rounded-xl border border-white/5 bg-secondary/50 px-3 py-2 font-heading text-sm text-white placeholder:text-muted-foreground outline-none focus:border-[#C5A065]/50 transition-colors"
                   />
                   <button
                     onClick={() => handleUpdateProgress(goal.id)}
-                    className="rounded-xl bg-primary px-3 py-2 font-heading text-xs font-semibold text-primary-foreground"
+                    className="rounded-xl bg-[#C5A065] px-3 py-2 font-heading text-xs font-semibold text-black active:scale-[0.98] transition-all"
                   >
                     Salvar
                   </button>
                   <button
                     onClick={() => setEditingGoalId(null)}
-                    className="rounded-xl border border-border px-3 py-2 font-heading text-xs text-muted-foreground"
+                    className="rounded-xl border border-white/5 px-3 py-2 font-heading text-xs text-muted-foreground hover:bg-white/5"
                   >
                     Cancelar
                   </button>
@@ -126,7 +126,7 @@ export function UserGoalsSection({ goals }: UserGoalsSectionProps) {
                     setEditingGoalId(goal.id);
                     setProgressValue(goal.currentValue ?? "");
                   }}
-                  className="font-heading text-xs text-primary text-left"
+                  className="font-heading text-xs font-semibold text-[#C5A065]/80 hover:text-[#C5A065] text-left transition-colors"
                 >
                   Atualizar progresso
                 </button>

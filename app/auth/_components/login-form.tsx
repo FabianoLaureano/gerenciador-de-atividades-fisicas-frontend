@@ -45,14 +45,14 @@ export function LoginForm() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 font-heading text-sm text-white placeholder:text-white/40 outline-none"
+          className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-heading text-sm text-white placeholder:text-white/40 outline-none focus:border-[#C5A065]/50 transition-colors"
         />
         <input
           type="password"
           placeholder="Senha"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-xl border border-white/10 bg-white/10 px-4 py-3 font-heading text-sm text-white placeholder:text-white/40 outline-none"
+          className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-heading text-sm text-white placeholder:text-white/40 outline-none focus:border-[#C5A065]/50 transition-colors"
         />
         {error && <p className="font-heading text-xs text-red-400">{error}</p>}
       </div>
@@ -60,7 +60,7 @@ export function LoginForm() {
       <button
         onClick={handleSubmit}
         disabled={isLoading}
-        className="w-full rounded-full bg-primary py-3 font-heading text-sm font-semibold text-primary-foreground disabled:opacity-50"
+        className="w-full rounded-full bg-[#C5A065] py-3 font-heading text-sm font-semibold text-black hover:bg-[#B8935A] active:scale-[0.98] transition-all disabled:opacity-50"
       >
         {isLoading ? "Entrando..." : "Entrar"}
       </button>
