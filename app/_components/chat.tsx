@@ -255,7 +255,7 @@ export function Chat({ embedded = false, initialMessage }: ChatProps) {
         onClick={handleClose}
       />
 
-      <div className="absolute inset-x-4 bottom-4 top-40 flex flex-col">
+      <div className="absolute inset-x-4 bottom-4 top-40 flex flex-col lg:inset-x-0 lg:mx-auto lg:max-w-md lg:top-10 lg:bottom-10 lg:w-full">
         {chatContent}
       </div>
     </div>

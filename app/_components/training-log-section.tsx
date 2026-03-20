@@ -17,7 +17,7 @@ export function TrainingLogSection({
 
   return (
     <>
-      <div className="flex flex-col gap-3 p-5">
+      <div className="flex flex-col gap-3 pb-5">
         <div className="flex items-center justify-between">
           <h2 className="font-heading text-lg font-semibold text-foreground">
             Outros Treinos

@@ -38,115 +38,118 @@ export default async function ProfilePage() {
   const goals = goalsData.status === 200 ? goalsData.data : [];
 
   return (
-    <div className="flex min-h-svh flex-col bg-background pb-24">
-      <div className="flex h-[56px] items-center px-5">
+    <div className="flex min-h-svh flex-col bg-background pb-24 lg:mx-auto lg:max-w-[1240px]">
+      <div className="flex h-[56px] items-center px-5 lg:h-20">
         <p
-          className="text-[22px] uppercase leading-[1.15] text-foreground"
+          className="text-[22px] uppercase leading-[1.15] text-foreground lg:text-3xl"
           style={{ fontFamily: "var(--font-anton)" }}
         >
           Fit.ai
         </p>
       </div>
 
-      <div className="flex flex-col items-center gap-5 px-5 pt-5">
+      <div className="flex flex-col gap-5 px-5 pt-5 lg:gap-10">
         <div className="flex w-full items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Avatar className="size-[52px]">
-              <AvatarFallback className="text-lg">
+          <div className="flex items-center gap-3 lg:gap-6">
+            <Avatar className="size-[52px] lg:size-20">
+              <AvatarFallback className="text-lg lg:text-2xl">
                 {session.name.charAt(0).toUpperCase()}
               </AvatarFallback>
             </Avatar>
-            <div className="flex flex-col gap-1.5">
-              <h1 className="font-heading text-lg font-semibold leading-[1.05] text-foreground">
+            <div className="flex flex-col gap-1.5 lg:gap-3">
+              <h1 className="font-heading text-lg font-semibold leading-[1.05] text-foreground lg:text-3xl">
                 {userName}
               </h1>
-              <p className="font-heading text-sm leading-[1.15] text-foreground/70">
-                Plano Basico
+              <p className="font-heading text-sm leading-[1.15] text-foreground/70 lg:text-lg">
+                Plano Básico
               </p>
             </div>
           </div>
+          <div className="hidden lg:block">
+            <LogoutButton />
+          </div>
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-3">
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <Weight className="size-4 text-primary" />
+        <div className="grid w-full grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-6">
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <Weight className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {weightInKg ?? "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 Kg
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <Ruler className="size-4 text-primary" />
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <Ruler className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {heightInCm ?? "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 Cm
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <BicepsFlexed className="size-4 text-primary" />
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <BicepsFlexed className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {bodyFatPercentage != null ? `${bodyFatPercentage}%` : "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 Gc
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <User className="size-4 text-primary" />
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <User className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {age ?? "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 Anos
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <Activity className="size-4 text-primary" />
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <Activity className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {bmi ?? "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 IMC
               </span>
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5">
-            <div className="flex items-center rounded-full bg-primary/8 p-[9px]">
-              <Zap className="size-4 text-primary" />
+          <div className="flex flex-col items-center gap-5 rounded-xl bg-primary/8 p-5 lg:py-8">
+            <div className="flex items-center rounded-full bg-primary/8 p-[9px] lg:p-4">
+              <Zap className="size-4 text-primary lg:size-6" />
             </div>
             <div className="flex flex-col items-center gap-1.5">
-              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground">
+              <span className="font-heading text-2xl font-semibold leading-[1.15] text-foreground lg:text-4xl">
                 {bmr ?? "-"}
               </span>
-              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground">
+              <span className="font-heading text-xs uppercase leading-[1.4] text-muted-foreground lg:text-sm">
                 TMB
               </span>
             </div>
@@ -155,7 +158,9 @@ export default async function ProfilePage() {
 
         <UserGoalsSection goals={goals} />
 
-        <LogoutButton />
+        <div className="lg:hidden">
+          <LogoutButton />
+        </div>
       </div>
 
       <BottomNav activePage="profile" />
