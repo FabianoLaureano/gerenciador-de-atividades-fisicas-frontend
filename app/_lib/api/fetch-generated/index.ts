@@ -506,6 +506,7 @@ export type UpsertUserTrainData200 = {
 export type CreateTrainingLogBody = {
   name?: string;
   description?: string;
+  type?: string;
 };
 
 export type CreateTrainingLog201 = {
@@ -513,6 +514,7 @@ export type CreateTrainingLog201 = {
   id: string;
   name: string;
   description?: string;
+  type: string;
   createdAt: string;
 };
 
@@ -521,6 +523,7 @@ export type GetTrainingLogs200Item = {
   id: string;
   name: string;
   description?: string;
+  type: string;
   createdAt: string;
 };
 
@@ -574,6 +577,51 @@ export type CompleteUserGoal200 = {
   completedAt?: string;
   createdAt?: string;
   updatedAt?: string;
+};
+
+export type RegisterBody = {
+  /** @minLength 1 */
+  name: string;
+  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
+  email: string;
+  /** @minLength 6 */
+  password: string;
+  /** @maximum 9007199254740991 */
+  weightInGrams?: number;
+  /** @maximum 9007199254740991 */
+  heightInCentimeters?: number;
+  /** @maximum 9007199254740991 */
+  age?: number;
+  /**
+   * @minimum 0
+   * @maximum 100
+   */
+  bodyFatPercentage?: number;
+  gender?: string;
+};
+
+export type Register201 = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type LoginBody = {
+  /** @pattern ^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$ */
+  email: string;
+  /** @minLength 1 */
+  password: string;
+};
+
+export type Login200User = {
+  id: string;
+  name: string;
+  email: string;
+};
+
+export type Login200 = {
+  token: string;
+  user: Login200User;
 };
 
 export type GetHealth200 = {
@@ -1310,6 +1358,64 @@ export const completeUserGoal = async (
   return customFetch<completeUserGoalResponse>(getCompleteUserGoalUrl(id), {
     ...options,
     method: "PATCH",
+  });
+};
+
+/**
+ * @summary Register a new user
+ */
+export type registerResponse201 = {
+  data: Register201;
+  status: 201;
+};
+
+export type registerResponseSuccess = registerResponse201 & {
+  headers: Headers;
+};
+export type registerResponse = registerResponseSuccess;
+
+export const getRegisterUrl = () => {
+  return `/auth/register`;
+};
+
+export const register = async (
+  registerBody: RegisterBody,
+  options?: RequestInit,
+): Promise<registerResponse> => {
+  return customFetch<registerResponse>(getRegisterUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(registerBody),
+  });
+};
+
+/**
+ * @summary Authenticate user
+ */
+export type loginResponse200 = {
+  data: Login200;
+  status: 200;
+};
+
+export type loginResponseSuccess = loginResponse200 & {
+  headers: Headers;
+};
+export type loginResponse = loginResponseSuccess;
+
+export const getLoginUrl = () => {
+  return `/auth/login`;
+};
+
+export const login = async (
+  loginBody: LoginBody,
+  options?: RequestInit,
+): Promise<loginResponse> => {
+  return customFetch<loginResponse>(getLoginUrl(), {
+    ...options,
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    body: JSON.stringify(loginBody),
   });
 };
 

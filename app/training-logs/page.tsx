@@ -9,11 +9,12 @@ import { Badge } from "@/components/ui/badge";
 import { ClipboardList } from "lucide-react";
 import dayjs from "dayjs";
 import { getSession } from "@/app/_lib/get-session";
+import { TrainingLogCard } from "@/app/training-logs/_components/training-log-card";
+import { TrainingLogList } from "@/app/training-logs/_components/training-log-list";
 
 export default async function TrainingLogsPage() {
   const session = await getSession();
   if (!session) redirect("/auth");
-  const userName = session.name.split(" ")[0];
 
   const trainingLogsData = await getTrainingLogs();
 
@@ -72,26 +73,7 @@ export default async function TrainingLogsPage() {
             Nenhum treino registrado ainda.
           </p>
         ) : (
-          logs.map((log) => (
-            <div
-              key={log.id}
-              className="flex flex-col gap-2 rounded-xl border border-border p-5"
-            >
-              <div className="flex items-center justify-between">
-                <p className="font-heading text-base font-semibold text-foreground">
-                  {log.name}
-                </p>
-                <span className="font-heading text-xs text-muted-foreground">
-                  {dayjs(log.createdAt).format("DD/MM/YYYY")}
-                </span>
-              </div>
-              {log.description && (
-                <p className="font-heading text-sm text-muted-foreground">
-                  {log.description}
-                </p>
-              )}
-            </div>
-          ))
+          <TrainingLogList logs={logs} />
         )}
       </div>
 

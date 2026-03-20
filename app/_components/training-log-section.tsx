@@ -4,6 +4,7 @@ import { useState } from "react";
 import { TrainingLogModal } from "./training-log-modal";
 import type { GetTrainingLogs200Item } from "@/app/_lib/api/fetch-generated";
 import Link from "next/link";
+import { TrainingLogCard } from "@/app/training-logs/_components/training-log-card";
 
 interface TrainingLogSectionProps {
   latestTrainingLog: GetTrainingLogs200Item | null;
@@ -38,16 +39,12 @@ export function TrainingLogSection({
         </div>
 
         {latestTrainingLog ? (
-          <div className="rounded-xl border border-border p-5">
-            <p className="font-heading text-base font-semibold text-foreground">
-              {latestTrainingLog.name}
-            </p>
-            {latestTrainingLog.description && (
-              <p className="font-heading text-sm text-muted-foreground mt-1">
-                {latestTrainingLog.description}
-              </p>
-            )}
-          </div>
+          <TrainingLogCard
+            name={latestTrainingLog.name}
+            description={latestTrainingLog.description}
+            type={latestTrainingLog.type ?? "outro"}
+            createdAt={latestTrainingLog.createdAt}
+          />
         ) : (
           <button
             onClick={() => setIsModalOpen(true)}
